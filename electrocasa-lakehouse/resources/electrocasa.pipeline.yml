@@ -1,0 +1,26 @@
+resources:
+  pipelines:
+    electrocasa:
+      name: electrocasa
+
+      catalog: electrocasa
+      schema: silver_${bundle.target}
+
+      configuration:
+        electrocasa.catalog: electrocasa
+        electrocasa.silver_schema: silver_${bundle.target}
+        electrocasa.gold_schema: gold_${bundle.target}
+
+      channel: CURRENT
+      continuous: false
+      photon: true
+      serverless: true
+
+      root_path: ${workspace.file_path}/src/electrocasa
+
+      libraries:
+        - file:
+            path: ${workspace.file_path}/src/electrocasa/transformations/Silver.py
+
+        - file:
+            path: ${workspace.file_path}/src/electrocasa/transformations/Gold.py

@@ -1,0 +1,44 @@
+resources:
+  jobs:
+    electrocasa_job:
+      name: Electrocasa_job
+
+      tasks:
+        - task_key: Bronze_ingestion
+          disabled: false
+          email_notifications: {}
+          environment_key: Default
+          run_if: ALL_SUCCESS
+          spark_python_task:
+            python_file: ${workspace.file_path}/src/electrocasa/transformations/Bronze.py
+          timeout_seconds: 0
+          webhook_notifications: {}
+
+        - task_key: Electrocasa_pipeline
+          depends_on:
+            - task_key: Bronze_ingestion
+          disabled: false
+          email_notifications: {}
+          run_if: ALL_SUCCESS
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.electrocasa.id}
+            full_refresh: false
+          timeout_seconds: 0
+          webhook_notifications: {}
+
+      email_notifications:
+        no_alert_for_skipped_runs: false
+
+      environments:
+        - environment_key: Default
+          spec:
+            environment_version: "5"
+
+      max_concurrent_runs: 1
+      performance_target: PERFORMANCE_OPTIMIZED
+
+      queue:
+        enabled: true
+
+      timeout_seconds: 0
+      webhook_notifications: {}

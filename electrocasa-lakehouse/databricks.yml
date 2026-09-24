@@ -1,0 +1,27 @@
+# Declarative Automation Bundle configuration, more info here: https://docs.databricks.com/en/dev-tools/bundles/settings.html
+bundle:
+  name: "electrocasa-lakehouse"
+
+include:
+  - resources/*.yml
+  - resources/*/*.yml
+
+targets:
+  # The 'dev' target, for development purposes. This target is the default.
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://adb-7405614142231921.1.azuredatabricks.net
+
+  # The 'prod' target, used for production deployment.
+  prod:
+    mode: production
+    workspace:
+      host: https://adb-7405614142231921.1.azuredatabricks.net
+      # We always use /Users/u19209136@utp.edu.pe for all resources to make sure we only have a single copy.
+      root_path: /Users/u19209136@utp.edu.pe/.bundle/${bundle.name}/${bundle.target}
+    run_as:
+      # This runs as u19209136@utp.edu.pe in production. We could also use a service principal here,
+      # see https://docs.databricks.com/dev-tools/bundles/permissions.html.
+      user_name: u19209136@utp.edu.pe
