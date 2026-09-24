@@ -9,6 +9,9 @@ resources:
           email_notifications: {}
           environment_key: Default
           run_if: ALL_SUCCESS
+          max_retries: 2
+          min_retry_interval_millis: 60000
+          retry_on_timeout: true
           spark_python_task:
             python_file: ${workspace.file_path}/src/electrocasa/transformations/Bronze.py
           timeout_seconds: 0
@@ -20,6 +23,9 @@ resources:
           disabled: false
           email_notifications: {}
           run_if: ALL_SUCCESS
+          max_retries: 2
+          min_retry_interval_millis: 60000
+          retry_on_timeout: true
           pipeline_task:
             pipeline_id: ${resources.pipelines.electrocasa.id}
             full_refresh: false
@@ -27,6 +33,8 @@ resources:
           webhook_notifications: {}
 
       email_notifications:
+        on_failure:
+          - u19209136@utp.edu.pe
         no_alert_for_skipped_runs: false
 
       environments:
@@ -42,3 +50,8 @@ resources:
 
       timeout_seconds: 0
       webhook_notifications: {}
+      trigger:
+        pause_status: UNPAUSED
+        periodic:
+          interval: 1
+          unit: DAYS

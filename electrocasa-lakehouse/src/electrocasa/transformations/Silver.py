@@ -334,7 +334,26 @@ def silver_productos():
 
 @dp.materialized_view(
     name="silver_empleados",
-    comment="Historial limpio de eventos de empleados"
+    comment="Historial limpio de eventos de empleados",
+    schema="""
+        id_empleado STRING,
+        nombre STRING,
+        dni STRING MASK electrocasa.silver.mask_dni,
+        email STRING,
+        salario DOUBLE MASK electrocasa.silver.mask_salario,
+        sucursal_id STRING,
+        cargo STRING,
+        tipo_evento STRING,
+        fecha_evento DATE,
+        _rescued_data STRING,
+        _source_file STRING,
+        _source_file_name STRING,
+        _source_file_modification_time TIMESTAMP,
+        _ingestion_timestamp TIMESTAMP,
+        _source STRING,
+        tipo_evento_raw STRING,
+        _silver_timestamp TIMESTAMP
+    """
 )
 @dp.expect_all_or_drop({
     "empleado_valido": "id_empleado IS NOT NULL",
