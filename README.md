@@ -666,25 +666,17 @@ Gold
        ✅
 ```
 
-### Evidencia 27 — Job final
+### Evidencia  — Job final
 
-**Captura:** `docs/evidencias/27_ejecucion_final_job.png`
+> ![image_1790312440017.png](./image_1790312440017.png "image_1790312440017.png")
 
-**Qué debe mostrar:** Job completo con ambas tareas en `Succeeded`.
+### Evidencia  — Pipeline final
 
-> `![Ejecución final Job](docs/evidencias/27_ejecucion_final_job.png)`
 
-### Evidencia 28 — Pipeline final
-
-**Captura:** `docs/evidencias/28_ejecucion_final_pipeline.png`
-
-**Qué debe mostrar:** Pipeline finalizado correctamente.
-
-> `![Ejecución final Pipeline](docs/evidencias/28_ejecucion_final_pipeline.png)`
-
+> ![image_1790312475558.png](./image_1790312475558.png "image_1790312475558.png")
 ---
 
-## 25. Troubleshooting
+## 24. Troubleshooting
 
 Durante el desarrollo se presentaron y resolvieron incidencias relacionadas con:
 
