@@ -500,14 +500,10 @@ Pipeline task
 
 Depende de `Bronze_ingestion`.
 
-### Evidencia 18 — Job
+### Evidencia — Job
 
-**Captura:** `docs/evidencias/18_job_graph.png`
-
-**Qué debe mostrar:** las dos tareas, la dependencia y estado `Succeeded`.
-
-> `![Job](docs/evidencias/18_job_graph.png)`
-
+> ![image_1790308334353.png](./image_1790308334353.png "image_1790308334353.png")
+> ![image_1790308594702.png](./image_1790308594702.png "image_1790308594702.png")
 ---
 
 ## 17. Reintentos
@@ -522,13 +518,9 @@ retry_on_timeout: true
 
 El objetivo es mejorar la tolerancia frente a fallos transitorios.
 
-### Evidencia 19 — Retries y alertas
+### Evidencia — Retries y alertas
 
-**Captura:** `docs/evidencias/19_retries_alertas.png`
-
-**Qué debe mostrar:** valores reales de reintentos y notificación.
-
-> `![Retries y alertas](docs/evidencias/19_retries_alertas.png)`
+> ![image_1790308766111.png](./image_1790308766111.png "image_1790308766111.png")
 
 ---
 
@@ -559,13 +551,9 @@ Status: Active
 
 La frecuencia diaria es coherente con un proceso batch y evita mantener la plataforma ejecutándose continuamente.
 
-### Evidencia 20 — Schedule
+### Evidencia — Schedule
 
-**Captura:** `docs/evidencias/20_schedule.png`
-
-**Qué debe mostrar:** `Active`, `Scheduled` y `Every 1 Day`.
-
-> `![Schedule](docs/evidencias/20_schedule.png)`
+> ![image_1790308884568.png](./image_1790308884568.png "image_1790308884568.png")
 
 ---
 
@@ -585,11 +573,7 @@ La estimación exacta del costo depende del consumo real del workspace.
 
 ### Evidencia 21 — Compute y costos
 
-**Captura:** `docs/evidencias/21_costos_compute.png`
-
-**Qué debe mostrar:** uso/configuración de Serverless y, si está disponible, consumo.
-
-> `![Compute y costos](docs/evidencias/21_costos_compute.png)`
+> ![image_1790310633090.png](./image_1790310633090.png "image_1790310633090.png")
 
 ---
 
@@ -632,21 +616,13 @@ deploy prod
 run / validar
 ```
 
-### Evidencia 22 — Bundle DEV
+### Evidencia — Bundle DEV
 
-**Captura:** `docs/evidencias/22_bundle_dev.png`
-
-**Qué debe mostrar:** target `dev` y despliegue exitoso.
-
-> `![Bundle DEV](docs/evidencias/22_bundle_dev.png)`
+> ![image_1790310833305.png](./image_1790310833305.png "image_1790310833305.png")
 
 ### Evidencia 23 — Bundle PROD
 
-**Captura:** `docs/evidencias/23_bundle_prod.png`
-
-**Qué debe mostrar:** target `prod` y despliegue exitoso.
-
-> `![Bundle PROD](docs/evidencias/23_bundle_prod.png)`
+> ![image_1790310911331.png](./image_1790310911331.png "image_1790310911331.png")
 
 ---
 
@@ -662,77 +638,17 @@ Se revisaron:
 - Tablas de cuarentena.
 - Resultados Gold.
 
-### Evidencia 24 — Monitoreo del Job
+### Evidencia — Monitoreo del Job
 
-**Captura:** `docs/evidencias/24_monitoreo_job.png`
-
-**Qué debe mostrar:** historial del Job con ejecuciones exitosas.
-
-> `![Monitoreo Job](docs/evidencias/24_monitoreo_job.png)`
+> ![image_1790311405117.png](./image_1790311405117.png "image_1790311405117.png")
 
 ### Evidencia 25 — Monitoreo del Pipeline
 
-**Captura:** `docs/evidencias/25_monitoreo_pipeline.png`
-
-**Qué debe mostrar:** Pipeline completado correctamente y tablas procesadas.
-
-> `![Monitoreo Pipeline](docs/evidencias/25_monitoreo_pipeline.png)`
+> ![image_1790311830197.png](./image_1790311830197.png "image_1790311830197.png")
 
 ---
 
-## 23. Validaciones SQL
-
-### Schemas
-
-```sql
-SHOW SCHEMAS IN electrocasa;
-```
-
-### Volume
-
-```sql
-SHOW VOLUMES IN electrocasa.bronze;
-```
-
-### Tracking
-
-```sql
-SHOW TABLES IN electrocasa_sql.dbo;
-
-SELECT COUNT(*) AS total_registros
-FROM electrocasa_sql.dbo.trackingenvios;
-```
-
-### Silver
-
-```sql
-DESCRIBE TABLE electrocasa.silver.silver_empleados;
-```
-
-### Gold
-
-```sql
-SHOW TABLES IN electrocasa.gold;
-```
-
-### Grupo
-
-```sql
-SELECT
-    is_account_group_member('electrocasa_ingenieria') AS es_ingenieria;
-```
-
-### Evidencia 26 — Validaciones
-
-**Captura:** `docs/evidencias/26_validaciones_sql.png`
-
-**Qué debe mostrar:** consultas de validación con resultados exitosos.
-
-> `![Validaciones SQL](docs/evidencias/26_validaciones_sql.png)`
-
----
-
-## 24. Ejecución end-to-end
+## 23. Ejecución end-to-end
 
 La ejecución final debe demostrar:
 
@@ -800,3 +716,19 @@ Deploy PROD
 Este enfoque permite reducir el riesgo de introducir cambios simultáneos y facilita la identificación de errores.
 
 ---
+
+## Conclusión
+
+El proyecto ElectroCasa implementa una plataforma de datos de extremo a extremo sobre Microsoft Azure Databricks.
+
+La solución integra seis fuentes mediante distintos mecanismos de ingesta y organiza el procesamiento bajo una arquitectura Medallion.
+
+Bronze concentra la ingestión y trazabilidad; Silver aplica limpieza, calidad, cuarentena, deduplicación, historización y protección de información sensible; y Gold genera resultados preparados para análisis de negocio.
+
+Unity Catalog proporciona gobierno sobre catálogos, schemas, volúmenes, permisos y datos sensibles.
+
+Lakeflow Jobs permite orquestar la ejecución mediante tareas dependientes, retries, alertas y programación diaria.
+
+Finalmente, Declarative Automation Bundles permite gestionar el código y los recursos del proyecto como configuración versionada y desplegar de forma reproducible entre `dev` y `prod`.
+
+La solución queda respaldada por evidencias de ejecución, calidad, seguridad, monitoreo y despliegue.
